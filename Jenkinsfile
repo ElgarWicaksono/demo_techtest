@@ -2,22 +2,17 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build Maven') {
             steps {
                 echo 'Building..'
                 sh 'chmod +x ./mvnw'
-                sh './mvnw install'
+                sh './mvnw package'
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-                sh './mvnw test'
-            }
-        }
-        stage('Deploy') {
+        stage('Build Image') {
             steps {
                 echo 'Deploying....'
+                sh 'docker build -t elgarwicaksono/demo-techtest:v1 .'
             }
         }
     }
