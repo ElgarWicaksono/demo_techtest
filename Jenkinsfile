@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh 'chmod +x '
+                sh 'chmod +x ./mvnw'
                 sh './mvnw install'
             }
         }
