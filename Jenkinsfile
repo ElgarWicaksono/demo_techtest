@@ -2,8 +2,8 @@ pipeline {
     agent any
 
         environment {
-            DOCKER_HUB_USERNAME = credentials('docker-hub-username')
-            DOCKER_HUB_PASSWORD = credentials('docker-hub-password')
+            DOCKER_HUB_UNAME = credentials('docker-hub-username')
+            DOCKER_HUB_PWD = credentials('docker-hub-password')
             GITHASH = sh(script: 'git rev-parse HEAD | cut -b 1-8', returnStdout: true)
             DOCKER_IMAGE = 'elgarwicaksono/demo-techtest:version-'
         }
@@ -28,7 +28,7 @@ pipeline {
 
             steps {
                 echo 'Pushing Image....'
-                sh 'docker login -u %DOCKER_HUB_USERNAME% -p %DOCKER_HUB_PASSWORD%'
+                sh('docker login -u $DOCKER_HUB_UNAME -p $DOCKER_HUB_PWD')
                 sh 'docker image push $DOCKER_IMAGE$GITHASH'
             }
         }
