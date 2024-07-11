@@ -22,11 +22,11 @@ pipeline {
         stage('Push Image'){
             environment {
                 DOCKER_HUB_USERNAME = credentials('docker-hub-username')
-                DOCKER_HUN_PASSWORD = credentials('docker-hub-password')
+                DOCKER_HUB_PASSWORD = credentials('docker-hub-password')
             }
             steps {
                 echo 'Pushing Image....'
-                sh 'docker login -u elgarwicaksono -p dckr_pat_ysTzmiZIqUgTzxJF_Giw4ALulvU'
+                sh 'docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD'
                 sh 'docker image push $DOCKER_IMAGE'
             }
         }
