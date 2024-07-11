@@ -25,12 +25,14 @@ pipeline {
             }
         }
         stage('Push Image'){
-
             steps {
                 echo 'Pushing Image....'
-                sh('docker login -u $DOCKER_HUB_UNAME -p $DOCKER_HUB_PWD')
+                sh('docker login -u $DOCKER_HUB_USR -p $DOCKER_HUB_PWD')
                 sh 'docker image push $DOCKER_IMAGE$GITHASH'
             }
+        }
+        stage('Deploy'){
+            
         }
     }
 }
