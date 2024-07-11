@@ -14,9 +14,8 @@ pipeline {
                 echo 'Deploying....'
                 sh 'export GITBRANCH=$(git branch --show-current)'
                 sh 'export GITHASH=$(git rev-parse HEAD | cut -b 1-8)'
-                sh 'docker build -t elgarwicaksono/demo-techtest: .'
+                sh 'docker build -t elgarwicaksono/demo-techtest:$GITBRANCH-$GITHASH .'
             }
         }
-        stage('')
     }
 }
