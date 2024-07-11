@@ -13,10 +13,21 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 sh '''
-                export GITBRANCH=$(git branch | head -n 1 | cut -d " " -f 2) 
                 export GITHASH=$(git rev-parse HEAD | cut -b 1-8)
-                docker build -t elgarwicaksono/demo-techtest:version-$GITHASH .
+                export DOCKER_IMAGE=$(elgarwicaksono/demo-techtest:version-$GITHASH)
+                docker build -t $DOCKER_IMAGE .
                 '''
+            }
+        }
+        stage('Push Image'){
+            environment {
+                DOCKER_HUB_USERNAME = credentials('docker-hub-username')
+                DOCKER_HUN_PASSWORD = credentials('docker-hub-password')
+            }
+            steps {
+                echo 'Pushing Image....'
+                sh 'docker login -u elgarwicaksono -p dckr_pat_ysTzmiZIqUgTzxJF_Giw4ALulvU'
+                sh 'docker image push $DOCKER_IMAGE'
             }
         }
     }
