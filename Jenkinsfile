@@ -2,7 +2,7 @@ pipeline {
     agent any
 
         environment {
-            DOCKER_HUB_UNAME = credentials('docker-hub-username')
+            DOCKER_HUB_USR = credentials('docker-hub-username')
             DOCKER_HUB_PWD = credentials('docker-hub-password')
             GITHASH = sh(script: 'git rev-parse HEAD | cut -b 1-8', returnStdout: true)
             DOCKER_IMAGE = 'elgarwicaksono/demo-techtest:version-'
