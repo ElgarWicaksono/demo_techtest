@@ -4,8 +4,8 @@ pipeline {
         environment {
             DOCKER_HUB_USERNAME = credentials('docker-hub-username')
             DOCKER_HUB_PASSWORD = credentials('docker-hub-password')
-            GITHASH = sh(script: "git rev-parse HEAD | cut -b 1-8", returnStdout: true)
-            DOCKER_IMAGE = sh(script: "elgarwicaksono/demo-techtest:version-${env.GITHASH}")
+            GITHASH = sh(script: 'git rev-parse HEAD | cut -b 1-8', returnStdout: true)
+            DOCKER_IMAGE = sh(script: 'elgarwicaksono/demo-techtest:version-${env.GITHASH}')
         }
 
     stages {
