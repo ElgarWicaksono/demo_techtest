@@ -14,7 +14,7 @@ pipeline {
                 echo 'Deploying....'
                 sh '''
                 export GITHASH=$(git rev-parse HEAD | cut -b 1-8)
-                export DOCKER_IMAGE=$(elgarwicaksono/demo-techtest:version-$GITHASH)
+                export DOCKER_IMAGE=elgarwicaksono/demo-techtest:version-$GITHASH
                 docker build -t $DOCKER_IMAGE .
                 '''
             }
