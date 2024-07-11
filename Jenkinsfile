@@ -28,7 +28,7 @@ pipeline {
 
             steps {
                 echo 'Pushing Image....'
-                sh 'docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD'
+                sh 'docker login -u %DOCKER_HUB_USERNAME% -p %DOCKER_HUB_PASSWORD%'
                 sh 'docker image push $DOCKER_IMAGE$GITHASH'
             }
         }
