@@ -12,8 +12,11 @@ pipeline {
         stage('Build Image') {
             steps {
                 echo 'Deploying....'
-                sh 'docker build -t elgarwicaksono/demo-techtest:v1 .'
+                sh 'export GITBRANCH=$(git branch --show-current)'
+                sh 'export GITHASH=$(git rev-parse HEAD | cut -b 1-8)'
+                sh 'docker build -t elgarwicaksono/demo-techtest: .'
             }
         }
+        stage('')
     }
 }
