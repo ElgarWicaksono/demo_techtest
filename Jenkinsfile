@@ -5,7 +5,7 @@ pipeline {
             DOCKER_HUB_USR = credentials('docker-hub-username')
             DOCKER_HUB_PWD = credentials('docker-hub-password')
             GITHASH = sh(script: 'git rev-parse HEAD | cut -b 1-8', returnStdout: true)
-            DOCKER_IMAGE = 'elgarwicaksono/demo-techtest:version-'
+            DOCKER_IMAGE_NAME = 'elgarwicaksono/demo-techtest:version-'
         }
 
     stages {
@@ -19,21 +19,22 @@ pipeline {
         stage('Build Image') {
             steps {
                 echo 'Deploying....'
-                sh 'docker build -t $DOCKER_IMAGE$GITHASH .'
+                sh 'docker build -t $DOCKER_IMAGE_NAME$GITHASH .'
             }
         }
         stage('Push Image') {
             steps {
                 echo 'Pushing Image....'
                 sh 'docker login -u $DOCKER_HUB_USR -p $DOCKER_HUB_PWD'
-                sh 'docker image push $DOCKER_IMAGE$GITHASH'
+                sh 'docker image push $DOCKER_IMAGE_NAME$GITHASH'
             }
         }
         stage('Deploy') {
             steps {
                 withKubeConfig(credentialsId: 'minkube-kubeconfig-v2') {
                     echo 'Deploying on k8s cluster.....'
-                    sh 'kubectl get pods -A'
+                    sh 'kubectl apply -f ./Deployment/deployment.yaml'
+                    sh 'kubectl apply -f ./Deployment/service.yaml'
                 }
             }
         }
