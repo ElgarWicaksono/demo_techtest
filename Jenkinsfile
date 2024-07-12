@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                withKubeConfig(credentialsId: 'kubeconfig-minikube') {
+                withKubeConfig(credentialsId: 'minkube-kubeconfig-v2') {
                     echo 'Deploying on k8s cluster.....'
                     sh 'kubectl get pods -A'
                 }
