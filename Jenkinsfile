@@ -31,10 +31,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying on k8s cluster.....'
                 kubeconfig(credentialsId: 'kubeconfig-minikube', serverUrl: 'https://127.0.0.1:32769') {
+                    echo 'Deploying on k8s cluster.....'
                     sh 'kubectl get pods -A'
                 }
-        }
     }
 }
