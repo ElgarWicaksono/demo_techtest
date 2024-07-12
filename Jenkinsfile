@@ -30,9 +30,11 @@ pipeline {
             }
         }
         stage('Deploy') {
-            withKubeConfig(credentialsId: 'kubeconfig-minikube') {
-                echo 'Deploying on k8s cluster.....'
-                sh 'kubectl get pods -A'
+            steps {
+                withKubeConfig(credentialsId: 'kubeconfig-minikube') {
+                    echo 'Deploying on k8s cluster.....'
+                    sh 'kubectl get pods -A'
+                }
             }
         }
     }
