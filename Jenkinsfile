@@ -35,5 +35,7 @@ pipeline {
                     echo 'Deploying on k8s cluster.....'
                     sh 'kubectl get pods -A'
                 }
+            }
+        }
     }
 }
