@@ -22,14 +22,14 @@ pipeline {
                 sh 'docker build -t $DOCKER_IMAGE$GITHASH .'
             }
         }
-        stage('Push Image'){
+        stage('Push Image') {
             steps {
                 echo 'Pushing Image....'
                 sh 'docker login -u $DOCKER_HUB_USR -p $DOCKER_HUB_PWD'
                 sh 'docker image push $DOCKER_IMAGE$GITHASH'
             }
         }
-        stage('Deploy'){
+        stage('Deploy') {
             steps {
                 echo 'Deploying on k8s cluster.....'
                 sh 'kubectl get pods'
